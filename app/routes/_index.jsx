@@ -1,6 +1,7 @@
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
+import ProductCard from '~/components/ProductCard'; 
 
 /**
  * @type {MetaFunction}
@@ -64,7 +65,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      <ProductCard product={data.product} />
     </div>
   );
 }
