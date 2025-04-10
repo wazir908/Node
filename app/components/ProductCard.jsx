@@ -1,24 +1,23 @@
 import { useState, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-import mockProduct from '../lib/mockProduct'; // Ensure the path is correct
+import mockProduct from '../lib/mockProduct';
 import { FaEye, FaCartArrowDown } from 'react-icons/fa';
-import QuickViewPopup from './QuickViewPopup'; // Import the QuickViewPopup component
+import QuickViewPopup from './QuickViewPopup';
 
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Create separate product entries per variant for display
     const variantProducts = mockProduct.variants.map((variant) => ({
       ...mockProduct,
-      variants: [variant], // Only one variant per product
+      variants: [variant], 
       selectedVariant: variant
     }));
 
     setTimeout(() => {
       setProducts(variantProducts);
-    }, 500); // Simulated loading
+    }, 500);
   }, []);
 
   if (products.length === 0) {
@@ -37,7 +36,7 @@ export default function ProductList() {
 function ProductCard({ product }) {
   const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
   const [hovered, setHovered] = useState(false);
-  const [showPopup, setShowPopup] = useState(false); // State to control the popup
+  const [showPopup, setShowPopup] = useState(false); 
 
   const mainImage = selectedVariant?.images?.[0]?.url || '/productimages/default.jpg';
   const hoverImage = selectedVariant?.images?.[1]?.url || mainImage;
@@ -45,11 +44,11 @@ function ProductCard({ product }) {
   const savings = (parseFloat(selectedVariant.compareAtPrice) - parseFloat(selectedVariant.price)).toFixed(2);
 
   const handleQuickViewClick = () => {
-    setShowPopup(true); // Open the popup when clicked
+    setShowPopup(true);
   };
 
   const handleClosePopup = () => {
-    setShowPopup(false); // Close the popup
+    setShowPopup(false); 
   };
 
   return (
@@ -81,18 +80,16 @@ function ProductCard({ product }) {
         {/* Hover Actions: Quick View & Buy Now */}
         {hovered && (
           <div className="absolute bottom-5 left-5 right-5 flex justify-between gap-1">
-            {/* Quick View Button (White) */}
             <button
               onClick={handleQuickViewClick}
               className="flex items-center justify-center gap-2 text-xs bg-white text-black px-6 py-1 w-[150px] rounded-md border-2 border-black hover:bg-gray-100 transition"
             >
-              <FaEye /> {/* Quick View Icon */}
+              <FaEye />
               Quick View
             </button>
 
-            {/* Buy Now Button (Black) */}
             <button className="flex items-center justify-center gap-2 text-xs bg-black text-white px-6 py-1 w-[150px] rounded-md border-2 border-black hover:bg-gray-800 transition">
-              <FaCartArrowDown /> {/* Buy Now Icon */}
+              <FaCartArrowDown />
               Buy Now
             </button>
           </div>
@@ -101,7 +98,7 @@ function ProductCard({ product }) {
 
       {/* Info */}
       <div className="p-5 flex flex-col gap-3">
-        <p className="text-xs text-gray-500 font-medium">{product.brand}</p> {/* Brand name reduced size */}
+        <p className="text-xs text-gray-500 font-medium">{product.brand}</p>
         <h2 className="text-lg font-semibold text-gray-800">{product.title}</h2>
 
         {/* Price */}
